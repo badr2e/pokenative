@@ -1,26 +1,39 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
-
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
-
 export const Colors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
+    tint: "#DC0A2D",
+    grayDark: "#212121",
+    grayMedium: "#666666",
+    grayLight: "#E0E0E0",
+    grayBackground: "#EFEFEF",
+    grayWhite: "#FFFFFF",
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+    tint: "#DC0A2D",
+    grayDark: "#212121",
+    grayMedium: "#666666",
+    grayLight: "#E0E0E0",
+    grayBackground: "#EFEFEF",
+    grayWhite: "#FFFFFF",
+  },
+
+  type: {
+    bug: "#A7B723",
+    dark: "#755740",
+    dragon: "#7037FF",
+    electric: "#F9CF30",
+    fairy: "#E69EAC",
+    fighting: "#C12239",
+    fire: "#F57D31",
+    flying: "#A891EC",
+    ghost: "#70559B",
+    normal: "#AAA67F",
+    grass: "#74CB48",
+    ground: "#DEC16B",
+    ice: "#9AD6DF",
+    poison: "#A43E9E",
+    psychic: "#FB5584",
+    rock: "#B69E31",
+    steel: "#B7B9D0",
+    water: "#6493EB",
   },
 };
