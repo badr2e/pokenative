@@ -19,9 +19,15 @@ export default function Pokemon() {
   const colors = useThemeColors();
   const params = useLocalSearchParams() as { id: string };
   const { data: pokemon } = useFetchQuery("/pokemon/[id]", { id: params.id });
+  const { data: species } = useFetchQuery("/pokemon-species/[id]", {
+    id: params.id,
+  });
   const mainType = pokemon?.types?.[0].type.name;
   const colorType = mainType ? Colors.type[mainType] : colors.tint;
   const types = pokemon?.types ?? [];
+  const bio = species?.flavor_text_entries
+    ?.find(({ language }) => language.name === "en")
+    ?.flavor_text.replaceAll("\n", ". ");
   return (
     <RootView style={{ backgroundColor: colorType }}>
       <View>
@@ -68,6 +74,7 @@ export default function Pokemon() {
               <PokemonType name={type.type.name} key={type.type.name} />
             ))}
           </Row>
+          {/* Specs */}
           <ThemedText variant="subtitle1" style={{ color: colorType }}>
             About
           </ThemedText>
@@ -100,6 +107,9 @@ export default function Pokemon() {
               description="Moves"
             />
           </Row>
+          <ThemedText>{bio}</ThemedText>
+
+          {/* Stats */}
           <ThemedText variant="subtitle1" style={{ color: colorType }}>
             Base stats
           </ThemedText>
