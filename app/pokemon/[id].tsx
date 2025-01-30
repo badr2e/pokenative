@@ -6,9 +6,14 @@ import { ThemedText } from "@/components/ThemedText";
 import { useFetchQuery } from "@/hooks/useFetchQuery";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { Colors } from "@/constants/Colors";
-import { getPokemonArtwork } from "@/functions/pokemon";
+import {
+  formatSize,
+  formatWeight,
+  getPokemonArtwork,
+} from "@/functions/pokemon";
 import { Card } from "@/components/Card";
 import { PokemonType } from "@/components/pokemon/PokemonType";
+import { PokemonSpec } from "@/components/pokemon/PokemonSpec";
 
 export default function Pokemon() {
   const colors = useThemeColors();
@@ -66,6 +71,35 @@ export default function Pokemon() {
           <ThemedText variant="subtitle1" style={{ color: colorType }}>
             About
           </ThemedText>
+          <Row>
+            <PokemonSpec
+              style={{
+                borderStyle: "solid",
+                borderRightWidth: 1,
+                borderColor: colors.grayLight,
+              }}
+              title={formatWeight(pokemon?.weight)}
+              description="Weight"
+              image={require("@/assets/images/weight.png")}
+            />
+            <PokemonSpec
+              style={{
+                borderStyle: "solid",
+                borderRightWidth: 1,
+                borderColor: colors.grayLight,
+              }}
+              title={formatSize(pokemon?.height)}
+              description="Height"
+              image={require("@/assets/images/height.png")}
+            />
+            <PokemonSpec
+              title={pokemon?.moves
+                ?.slice(0, 2)
+                .map((move) => move.move.name)
+                .join("\n")}
+              description="Moves"
+            />
+          </Row>
           <ThemedText variant="subtitle1" style={{ color: colorType }}>
             Base stats
           </ThemedText>
