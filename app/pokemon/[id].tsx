@@ -25,6 +25,7 @@ export default function Pokemon() {
   const { data: species } = useFetchQuery("/pokemon-species/[id]", {
     id: params.id,
   });
+  const id = parseInt(params.id, 10);
   const mainType = pokemon?.types?.[0].type.name;
   const colorType = mainType ? Colors.type[mainType] : colors.tint;
   const types = pokemon?.types ?? [];
@@ -46,6 +47,22 @@ export default function Pokemon() {
     );
     sound.playAsync();
   };
+
+  const onPrevious = () => {
+    router.replace({
+      pathname: "/pokemon/[id]",
+      params: { id: Math.max(id - 1, 1) },
+    });
+  };
+  const onNext = () => {
+    router.replace({
+      pathname: "/pokemon/[id]",
+      params: { id: Math.min(id + 1, 151) },
+    });
+  };
+
+  const isFirst = id === 1;
+  const isLast = id === 151;
 
   return (
     <RootView backgroundColor={colorType}>
@@ -79,6 +96,17 @@ export default function Pokemon() {
         </Row>
         <View style={styles.body}>
           <Row style={styles.imageRow}>
+            {isFirst ? (
+              <View style={{ width: 24, height: 24 }}></View>
+            ) : (
+              <Pressable onPress={onPrevious}>
+                <Image
+                  width={24}
+                  height={24}
+                  source={require("@/assets/images/prev.png")}
+                />
+              </Pressable>
+            )}
             <Pressable onPress={onImagePress}>
               <Image
                 style={styles.artwork}
@@ -89,6 +117,17 @@ export default function Pokemon() {
                 height={200}
               />
             </Pressable>
+            {isLast ? (
+              <View style={{ width: 24, height: 24 }}></View>
+            ) : (
+              <Pressable onPress={onNext}>
+                <Image
+                  width={24}
+                  height={24}
+                  source={require("@/assets/images/next.png")}
+                />
+              </Pressable>
+            )}
           </Row>
         </View>
         <Card style={styles.card}>
@@ -168,6 +207,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -140,
     zIndex: 2,
+    justifyContent: "space-between",
+    left: 0,
+    right: 0,
+    paddingHorizontal: 20,
   },
   artwork: {},
   body: {
