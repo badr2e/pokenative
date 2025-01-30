@@ -94,7 +94,8 @@ export default function Pokemon() {
             #{params.id.padStart(3, "0")}
           </ThemedText>
         </Row>
-        <View style={styles.body}>
+
+        <Card style={[styles.card, { overflow: "visible" }]}>
           <Row style={styles.imageRow}>
             {isFirst ? (
               <View style={{ width: 24, height: 24 }}></View>
@@ -129,8 +130,6 @@ export default function Pokemon() {
               </Pressable>
             )}
           </Row>
-        </View>
-        <Card style={styles.card}>
           <Row gap={16} style={{ height: 20 }}>
             {types.map((type) => (
               <PokemonType name={type.type.name} key={type.type.name} />
@@ -213,10 +212,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   artwork: {},
-  body: {
-    marginTop: 144,
-  },
+  body: {},
   card: {
+    marginTop: 144,
+
     paddingHorizontal: 20,
     paddingTop: 60,
     gap: 16,
