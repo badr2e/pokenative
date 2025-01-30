@@ -58,11 +58,17 @@ export default function Pokemon() {
           />
         </View>
         <Card style={styles.card}>
-          <Row style={{ justifyContent: "center" }} gap={16}>
+          <Row gap={16}>
             {types.map((type) => (
               <PokemonType name={type.type.name} key={type.type.name} />
             ))}
           </Row>
+          <ThemedText variant="subtitle1" style={{ color: colorType }}>
+            About
+          </ThemedText>
+          <ThemedText variant="subtitle1" style={{ color: colorType }}>
+            Base stats
+          </ThemedText>
         </Card>
         <Text>Pokemon {params.id}</Text>
       </View>
@@ -94,5 +100,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 60,
     gap: 16,
+    alignItems: "center",
   },
 });
