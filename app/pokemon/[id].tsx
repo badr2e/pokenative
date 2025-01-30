@@ -8,6 +8,7 @@ import { useThemeColors } from "@/hooks/useThemeColors";
 import { Colors } from "@/constants/Colors";
 import { getPokemonArtwork } from "@/functions/pokemon";
 import { Card } from "@/components/Card";
+import { PokemonType } from "@/components/pokemon/PokemonType";
 
 export default function Pokemon() {
   const colors = useThemeColors();
@@ -15,6 +16,7 @@ export default function Pokemon() {
   const { data: pokemon } = useFetchQuery("/pokemon/[id]", { id: params.id });
   const mainType = pokemon?.types?.[0].type.name;
   const colorType = mainType ? Colors.type[mainType] : colors.tint;
+  const types = pokemon?.types ?? [];
   return (
     <RootView style={{ backgroundColor: colorType }}>
       <View>
@@ -32,7 +34,11 @@ export default function Pokemon() {
                 width={32}
                 height={32}
               />
-              <ThemedText color="grayWhite" variant="headline">
+              <ThemedText
+                color="grayWhite"
+                variant="headline"
+                style={{ textTransform: "capitalize" }}
+              >
                 {pokemon?.name}
               </ThemedText>
             </Row>
@@ -51,8 +57,12 @@ export default function Pokemon() {
             height={200}
           />
         </View>
-        <Card>
-          <ThemedText>Bonjour les gens</ThemedText>
+        <Card style={styles.card}>
+          <Row style={{ justifyContent: "center" }} gap={16}>
+            {types.map((type) => (
+              <PokemonType name={type.type.name} key={type.type.name} />
+            ))}
+          </Row>
         </Card>
         <Text>Pokemon {params.id}</Text>
       </View>
@@ -79,5 +89,10 @@ const styles = StyleSheet.create({
   },
   body: {
     marginTop: 144,
+  },
+  card: {
+    paddingHorizontal: 20,
+    paddingTop: 60,
+    gap: 16,
   },
 });
