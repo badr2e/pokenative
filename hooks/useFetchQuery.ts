@@ -1,3 +1,4 @@
+import { Colors } from "@/constants/Colors";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 const endpoint = "https://pokeapi.co/api/v2";
@@ -17,7 +18,7 @@ type API = {
     moves: { move: { name: string } }[];
     stats: { base_stat: number; stat: { name: string } }[];
     cries: { latest: string };
-    types: { type: { name: string } }[];
+    types: { type: { name: keyof (typeof Colors)["type"] } }[];
   };
 };
 
