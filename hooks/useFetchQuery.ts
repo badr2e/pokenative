@@ -32,8 +32,8 @@ export function useFetchQuery<T extends keyof API>(
   const localUrl =
     endpoint +
     Object.entries(params ?? {}).reduce(
-      (acc, [key, value]) => acc.replaceAll(`[${key}]`, value),
-      path
+      (acc, [key, value]) => acc.replaceAll(`[${key}]`, value.toString()),
+      path as string
     );
   return useQuery({
     queryKey: [localUrl],
