@@ -30,7 +30,7 @@ export default function Pokemon() {
     ?.find(({ language }) => language.name === "en")
     ?.flavor_text.replaceAll("\n", ". ");
   return (
-    <RootView style={{ backgroundColor: colorType }}>
+    <RootView backgroundColor={colorType}>
       <View>
         <Image
           style={styles.pokeball}
