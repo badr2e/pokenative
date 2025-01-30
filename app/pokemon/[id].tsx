@@ -14,6 +14,7 @@ import {
 import { Card } from "@/components/Card";
 import { PokemonType } from "@/components/pokemon/PokemonType";
 import { PokemonSpec } from "@/components/pokemon/PokemonSpec";
+import { PokemonStat } from "@/components/pokemon/PokemonStat";
 
 export default function Pokemon() {
   const colors = useThemeColors();
@@ -113,8 +114,18 @@ export default function Pokemon() {
           <ThemedText variant="subtitle1" style={{ color: colorType }}>
             Base stats
           </ThemedText>
+
+          <View style={{ alignSelf: "stretch" }}>
+            {pokemon?.stats.map((stat) => (
+              <PokemonStat
+                key={stat.stat.name}
+                name={stat.stat.name}
+                value={stat.base_stat}
+                color={colorType}
+              />
+            ))}{" "}
+          </View>
         </Card>
-        <Text>Pokemon {params.id}</Text>
       </View>
     </RootView>
   );
@@ -145,5 +156,6 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     gap: 16,
     alignItems: "center",
+    paddingBottom: 20,
   },
 });
