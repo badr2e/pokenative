@@ -123,7 +123,7 @@ export default function Pokemon() {
                 value={stat.base_stat}
                 color={colorType}
               />
-            ))}{" "}
+            ))}
           </View>
         </Card>
       </View>
