@@ -16,6 +16,7 @@ import { Card } from "@/components/Card";
 import { PokemonType } from "@/components/pokemon/PokemonType";
 import { PokemonSpec } from "@/components/pokemon/PokemonSpec";
 import { PokemonStat } from "@/components/pokemon/PokemonStat";
+import { Audio } from "expo-av";
 
 export default function Pokemon() {
   const colors = useThemeColors();
@@ -31,6 +32,21 @@ export default function Pokemon() {
     ?.find(({ language }) => language.name === "en")
     ?.flavor_text.replaceAll("\n", ". ");
   const stats = pokemon?.stats ?? basePokemonStats;
+
+  const onImagePress = async () => {
+    const cry = pokemon?.cries.latest;
+    if (!cry) {
+      return;
+    }
+    const { sound } = await Audio.Sound.createAsync(
+      {
+        uri: cry,
+      },
+      { shouldPlay: true }
+    );
+    sound.playAsync();
+  };
+
   return (
     <RootView backgroundColor={colorType}>
       <View>
@@ -62,14 +78,18 @@ export default function Pokemon() {
           </ThemedText>
         </Row>
         <View style={styles.body}>
-          <Image
-            style={styles.artwork}
-            source={{
-              uri: getPokemonArtwork(params.id),
-            }}
-            width={200}
-            height={200}
-          />
+          <Row style={styles.imageRow}>
+            <Pressable onPress={onImagePress}>
+              <Image
+                style={styles.artwork}
+                source={{
+                  uri: getPokemonArtwork(params.id),
+                }}
+                width={200}
+                height={200}
+              />
+            </Pressable>
+          </Row>
         </View>
         <Card style={styles.card}>
           <Row gap={16} style={{ height: 20 }}>
@@ -144,12 +164,12 @@ const styles = StyleSheet.create({
     right: 8,
     top: 8,
   },
-  artwork: {
+  imageRow: {
     position: "absolute",
     top: -140,
-    alignSelf: "center",
     zIndex: 2,
   },
+  artwork: {},
   body: {
     marginTop: 144,
   },
